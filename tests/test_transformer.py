@@ -6,9 +6,9 @@ from src.transformer import Transformer
 
 @pytest.mark.parametrize("num_encoder_layers", [1, 6])
 @pytest.mark.parametrize("num_decoder_layers", [1, 6])
-@pytest.mark.parametrize("dim_model", [1, 8])
+@pytest.mark.parametrize("dim_model", [2, 8])
 @pytest.mark.parametrize("num_heads", [1, 6])
-@pytest.mark.parametrize("dim_feedforward", [1, 8])
+@pytest.mark.parametrize("dim_feedforward", [2, 8])
 def test_init(
     num_encoder_layers: int,
     num_decoder_layers: int,
@@ -25,14 +25,14 @@ def test_init(
     )
 
 
-@pytest.mark.parametrize("batch_size", [1, 8])
-@pytest.mark.parametrize("src_len", [1, 2, 8])
-@pytest.mark.parametrize("tgt_len", [1, 2, 8])
-@pytest.mark.parametrize("num_features", [1, 8])
+@pytest.mark.parametrize("batch_size", [1, 2])
+@pytest.mark.parametrize("src_len", [2, 8])
+@pytest.mark.parametrize("tgt_len", [2, 8])
+@pytest.mark.parametrize("num_features", [2, 8])
 @pytest.mark.parametrize("num_encoder_layers", [1, 6])
 @pytest.mark.parametrize("num_decoder_layers", [1, 6])
 @pytest.mark.parametrize("num_heads", [1, 6])
-@pytest.mark.parametrize("dim_feedforward", [1, 8])
+@pytest.mark.parametrize("dim_feedforward", [2, 8])
 def test_forward(
     batch_size: int,
     src_len: int,

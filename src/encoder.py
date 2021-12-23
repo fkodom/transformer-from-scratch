@@ -13,9 +13,9 @@ class TransformerEncoderLayer(nn.Module):
         dropout: float = 0.1,
     ):
         super().__init__()
-        dim_k = dim_v = dim_model // num_heads
+        dim_q = dim_k = max(dim_model // num_heads, 1)
         self.attention = Residual(
-            MultiHeadAttention(num_heads, dim_model, dim_k, dim_v),
+            MultiHeadAttention(num_heads, dim_model, dim_q, dim_k),
             dimension=dim_model,
             dropout=dropout,
         )
