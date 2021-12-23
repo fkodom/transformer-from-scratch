@@ -9,7 +9,7 @@ def position_encoding(
 ) -> Tensor:
     pos = torch.arange(seq_len, dtype=torch.float, device=device).reshape(1, -1, 1)
     dim = torch.arange(dim_model, dtype=torch.float, device=device).reshape(1, 1, -1)
-    phase = pos / (1e4 ** torch.div(dim, dim_model, rounding_mode="floor"))
+    phase = pos / (1e4 ** torch.floor_divide(dim, dim_model))
 
     return torch.where(dim.long() % 2 == 0, torch.sin(phase), torch.cos(phase))
 
