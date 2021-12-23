@@ -1,0 +1,37 @@
+name: Test
+
+on:
+  workflow_dispatch: {}
+  push: {}
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    continue-on-error: true
+
+    strategy:
+      matrix:
+        python: ["3.7", "3.8", "3.9"]
+        torch: ["1.8", "1.9", "1.10"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Install Package
+        run: |
+          pip install torch==${{ matrix.torch }}
+          pip install -r requirements.txt
+          pip install black flake8 isort pytest pytest-cov
+      - name: Test
+        run: |
+          pytest --cov --cov-fail-under 100 tests/
+          black --check .
+          isort --diff .
+          flake8 .
